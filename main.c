@@ -11,16 +11,15 @@
   
 // Deklarasi node
 struct node {
-    int nomor;
+    int info;
     struct node* next;
 };
   
-// Pointer last pada circular linked list
+// Pointer last dan node pada linked list
 struct node* last = NULL;
 
 // Fungsi untuk menambahkan input pada akhir linked list
-// Fungsi untuk menambahkan input pada akhir linked list
-void insert(int data)
+void insertAtLast(int data)
 {
     // Initialize a new node
     struct node* temp;
@@ -50,8 +49,37 @@ void insert(int data)
 
 int main()
 {
-    // Baca Input: Lengkapi dengan fungsi insert yang telah disediakan
-    
+    // Baca input
+    int N;
+    scanf("%d", &N);
 
-    // Melakukan proses berhitung dan eliminasi
+    for(int i=0;i<N;i++) {
+        int input;
+        scanf("%d",&input);
+        insertAtLast(input);
+    }
+    
+    // Deletion
+    struct node* previous;
+
+    int nextKill = last->next->info;
+
+    for(int i=0;i<N-1;i++) {
+        for(int j=0;j<nextKill;j++) {
+            previous=last;
+            last=last->next;
+        }
+        // Change nextKill Variable
+        nextKill=last->info;
+
+        // Delete current last
+        previous->next = last->next;
+        free(last);
+        last = previous;
+    }
+
+    // Print list
+    printf("Pemenang: %d\n",last->info);
+  
+    return 0;
 }
